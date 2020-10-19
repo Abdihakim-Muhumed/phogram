@@ -12,4 +12,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.bio
-        
+
+class Photo(models.Model):
+    name = models.CharField(max_length=30)
+    caption = models.CharField(max_length=100)
+    profile = models.ForeignKey(Profile)
+    likes = models.CharField()
+    comments = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.bio
