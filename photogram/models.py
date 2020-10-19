@@ -1,9 +1,10 @@
 from django.db import models
-
+from cloudinary.models import CloudinaryField
 # Create your models here.
 class Profile(models.Model):
     username = models.CharField(max_length=30)
     bio = models.CharField(max_length=150)
+    profile_photo = CloudinaryField('image')
 
     def save_category(self):
          self.save()
@@ -24,6 +25,7 @@ class Profile(models.Model):
         return self.username
 
 class Photo(models.Model):
+    image = CloudinaryField('image')
     name = models.CharField(max_length=30)
     caption = models.CharField(max_length=100)
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
