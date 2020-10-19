@@ -6,10 +6,10 @@ class Profile(models.Model):
     bio = models.CharField(max_length=150)
     profile_photo = CloudinaryField('image')
 
-    def save_category(self):
+    def save_profile(self):
          self.save()
 
-    def delete_category(self):
+    def delete_profile(self):
         self.delete()
 
     @classmethod
@@ -19,7 +19,6 @@ class Profile(models.Model):
     @classmethod
     def update_username(cls, id, username):
         cls.objects.filter(id=id).update(username=username)
-
 
     def __str__(self):
         return self.username
