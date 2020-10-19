@@ -14,6 +14,7 @@ from pathlib import Path
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -129,7 +130,7 @@ STATIC_URL = '/static/'
 
 #cloudinary configurations
 cloudinary.config( 
-  cloud_name ='dtsnishtq', 
-  api_key ='226321379432761', 
-  api_secret ='8eMM8GUVO0KyLvItExPXrHWBvRg',
+  cloud_name = config('CLOUD_NAME'), 
+  api_key = config('API_KEY'), 
+  api_secret =config('API_SECRET'),
 )
