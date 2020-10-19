@@ -11,6 +11,15 @@ class Profile(models.Model):
     def delete_category(self):
         self.delete()
 
+    @classmethod
+    def update_bio(cls, id, bio):
+        cls.objects.filter(id=id).update(bio=bio)
+
+    @classmethod
+    def update_username(cls, id, username):
+        cls.objects.filter(id=id).update(username=username)
+
+
     def __str__(self):
         return self.username
 
@@ -23,3 +32,13 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.bio
+
+    def save_photo(self):
+        self.save()
+
+    def delete_photo(self):
+        self.delete()
+
+    @classmethod
+    def update_caption(cls, id, caption):
+        cls.objects.filter(id=id).update(caption=caption)
