@@ -1,0 +1,35 @@
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title> {{title}}</title>
+    {% else %}
+    <title>Photogram</title>
+    {% endif %}
+
+    {% block styles%}
+        {%bootstrap_css%}
+    {% endblock%}
+</head>
+<body>
+    
+    {% block content%}
+    {% endblock content%}
+    {% block scripts%}
+        {% bootstrap_javascript%}
+    {% endblock scripts%}
+
+</body>
+<!-- Footer -->
+<footer class="page-footer ">
+    <div class="footer-copyright text-center ">
+        <h2 style="color: #003049;">© 2020 Copyright: Abdihakim-Muhumed</h2>
+    </div>
+</footer>
+<!-- Footer -->
+</html>
+
+
