@@ -6,7 +6,7 @@ class comments(models.Model):
 
     def __str__(self):
         return self.comment
-        
+
 class Profile(models.Model):
     username = models.CharField(max_length=30)
     bio = models.CharField(max_length=150)
@@ -17,11 +17,12 @@ class Profile(models.Model):
 
     def delete_profile(self):
         self.delete()
-
+    
     @classmethod
     def update_bio(cls, id, bio):
-        cls.objects.filter(id=id).update(bio=bio)
-
+        prof = cls.objects.filter(id=id).first()
+        prof.bio = bio
+        prof.save()
     @classmethod
     def update_username(cls, id, username):
         cls.objects.filter(id=id).update(username=username)
@@ -36,6 +37,10 @@ class Photo(models.Model):
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
     likes = models.IntegerField()
     comments = models.ManyToManyField(comments)
+
+    class Meta:
+        ordering = ['name',]
+    
 
     def __str__(self):
         return self.bio

@@ -8,10 +8,10 @@ class TestPhoto(TestCase):
         self.newProfile = Profile(username='Abdi')
         self.newProfile.save_profile()
         
-        self.newImage = Photo(name = 'First image',caption = 'This is the first image.',likes = 0,comments = 'lit')
+        self.newImage = Photo(name = 'First image',caption = 'This is the first image.',likes = 0)
 
         self.newImage.save_photo()
-        self.newImage.Profile.add(self.newProfile)
+        self.newImage.profile.add(self.newProfile)
 
     def tearDown(self):
         Photo.objects.all().delete()
@@ -38,8 +38,32 @@ class TestPhoto(TestCase):
         image.update_caption(image.pk,new_caption)
         self.assertEqual(image.caption,'Yeah it is the first')
 
+class TestProfile(TestCase):
+    def setUp(self):
+        self.newProfile = Profile(username='Abdi')
+        self.newProfile.save_profile()
 
+    def test_instance(self):
+        self.assertIsInstance(self.newProfile, Profile)
 
-
+    def test_save_profile(self):
+        profiles = Profile.objects.all()
+        self.assertTrue(len(profiles)>0)
+    def test_delete_profile(self):
+        self.newProfile.delete_profile()
+        profiles = Profile.objects.all()  
+        self.assertTrue(len(profiles) == 0)      
+    def test_update_bio(self):
+        bio = 'My new bio'
+        profile = Profile(username = 'Abdi',bio = 'bio1')
+        profile.save_profile()
+        profile.update_bio(profile.pk,bio)
+        self.assertEqual(profile.bio,bio)
+    def test_update_username(self):
+        username = 'My new username'
+        profile = Profile(username = 'Abdi',bio = 'bio1')
+        profile.save_profile()
+        profile.update_username(profile.pk,username)
+        self.assertEqual(profile.username,username)
 
     
