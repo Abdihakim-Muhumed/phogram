@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'photogram.apps.PhotogramConfig',
     'cloudinary',
+    'django_registration'
 ]
 
 MIDDLEWARE = [
