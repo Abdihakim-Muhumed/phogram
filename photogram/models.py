@@ -8,7 +8,6 @@ class comments(models.Model):
         return self.comment
 
 class Profile(models.Model):
-    username = models.CharField(max_length=30)
     bio = models.CharField(max_length=150)
     profile_photo = CloudinaryField('image')
     comments = models.ManyToManyField(comments)
@@ -23,9 +22,7 @@ class Profile(models.Model):
         prof = cls.objects.filter(id=id).first()
         prof.bio = bio
         prof.save()
-    @classmethod
-    def update_username(cls, id, username):
-        cls.objects.filter(id=id).update(username=username)
+
 
     def __str__(self):
         return self.username

@@ -19,7 +19,7 @@ from django.conf.urls import include, url
 from django.contrib.auth import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('photogram.urls')),
+    path('accounts/profile/',include('photogram.urls')),
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     #path('logout/', views.LogoutView,{"next_page":'/'}),
