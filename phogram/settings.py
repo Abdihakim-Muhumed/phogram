@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'django_registration',
     'bootstrap3',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -132,7 +133,7 @@ STATIC_URL = '/static/'
 
 #cloudinary configurations
 cloudinary.config( 
-  cloud_name = config('CLOUD_NAME'), 
-  api_key = config('API_KEY'), 
-  api_secret =config('API_SECRET'),
+  cloud_name = 'dtsnishtq', 
+  api_key = '226321379432761', 
+  api_secret ='8eMM8GUVO0KyLvItExPXrHWBvRg',
 )

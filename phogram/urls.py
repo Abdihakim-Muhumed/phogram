@@ -24,4 +24,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     #path('logout/', views.LogoutView,{"next_page":'/'}),
     path('logout/', views.logout_then_login),
+    path(r'^tinymce/', include('tinymce.urls')),
+
 ]
