@@ -1,4 +1,28 @@
 {% extends 'base.html'%}
 {% block content%}
 <h1 class="text-center">Welcome to Photogram</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            {%if profile.profile_photo%}
+            <img src="{{profile.profile_photo.url}}" alt="" class="img-circle img-responsive" style="height: 150px; width: 150px;">
+            {%else%}
+            <i class="fas fa-user-circle" style="font-size: 30px;"></i>
+            {% endif%}
+        </div>
+        <div class="col-md-5">
+            <p>{{current_user.username}}</p>
+            {% if profile.bio%}
+            <p>{{profile.bio}}</p>
+            {% else%}
+            <p>No bio!</p>
+            {%endif%}
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'edit-profile'%}"><button class="btn btn-block btn-lg btn-success">Edit Profile</button></a>
+        </div>
+    </div>
+    <hr>
+</div>
 {%endblock%}

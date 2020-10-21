@@ -11,19 +11,12 @@ class comments(models.Model):
 class Profile(models.Model):
     bio = models.CharField(max_length=150)
     profile_photo = CloudinaryField('image')
-    comments = models.ManyToManyField(comments)
+    user = models.ForeignKey(User,default=1,on_delete=models.CASCADE)
     def save_profile(self):
          self.save()
 
     def delete_profile(self):
         self.delete()
-    
-    @classmethod
-    def update_bio(cls, id, bio):
-        prof = cls.objects.filter(id=id).first()
-        prof.bio = bio
-        prof.save()
-
 
     def __str__(self):
         return self.username
