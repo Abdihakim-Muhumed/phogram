@@ -18,12 +18,12 @@ from django.urls import path
 from django.conf.urls import include, url
 from django.contrib.auth import views
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/profile/',include('photogram.urls')),
-    path('accounts/', include('django_registration.backends.one_step.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    url('admin/', admin.site.urls),
+    url(r'^accounts/profile/',include('photogram.urls')),
+    url(r'^accounts/', include('django_registration.backends.one_step.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     #path('logout/', views.LogoutView,{"next_page":'/'}),
-    path('logout/', views.logout_then_login),
-    path(r'^tinymce/', include('tinymce.urls')),
+    url(r'^logout/$', views.logout_then_login, name ='logout'),
+    url(r'^tinymce/', include('tinymce.urls')),
 
 ]

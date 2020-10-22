@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import Profile,Photo,comments
+from .models import Profile,Photo,comments,Following
 from .forms import NewPhotoForm,EditProfileForm
+from django.contrib.auth.models import User
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -13,11 +14,15 @@ def profile(request):
     current_user = request.user
     try:
         profile = Profile.objects.filter(user = current_user).first()
-        photos = Photo.objects.filter(user = current_user).all()
-        posts = photos.count()
-        return render(request,'profile.html',{"profile":profile,"photos":photos,"current_user":current_user,"posts":posts})
     except:
         return redirect('edit-profile')
+    photos = Photo.objects.filter(user = current_user).all()
+    posts = photos.count()
+    followings = Following.objects.filter(profile = profile).all()
+    following = followings.count()
+    all_followers = Following.objects.filter(user = current_user).all()
+    followers = all_followers.count()
+    return render(request,'profile.html',{"profile":profile,"photos":photos,"current_user":current_user,"posts":posts,"following":following,"followers":followers})
 
 @login_required(login_url='/accounts/login/')
 def edit_profile(request):
@@ -68,3 +73,16 @@ def like_photo(request,photo_id):
     photo.likes +=1
     photo.save()
     return redirect('index')
+@login_required(login_url='/accounts/login/')
+def follow_user(request,user_id):
+    current_user = request.user
+    profile = Profile.objects.filter(user = current_user).first()
+    user = User.objects.filter(id=user_id).first()
+    follow = Following(profile = profile,user = user)
+    follow.save()
+    return redirect('people')
+
+@login_required(login_url='/accounts/login/')
+def people(request):
+    profiles = Profile.objects.all()
+    return render(request,'people.html',{"profiles":profiles})

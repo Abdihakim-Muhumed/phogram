@@ -16,6 +16,10 @@ class Profile(models.Model):
     def __str__(self):
         return self.username
 
+class Following(models.Model):
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE,default=1)
+    user= models.ForeignKey(User,on_delete=models.CASCADE,default=1)
+
 class Photo(models.Model):
     image = CloudinaryField('image')
     caption = models.CharField(max_length=100)
