@@ -1,18 +1,20 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import Profile,Photo
+from .models import Profile,Photo,comments
 from .forms import NewPhotoForm,EditProfileForm
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def index(request):
-    return render(request,'index.html')
+    photos = Photo.objects.all()
+    return render(request,'index.html',{"photos":photos})
 @login_required(login_url='/accounts/login/')
 def profile(request):
     current_user = request.user
     try:
         profile = Profile.objects.filter(user = current_user).first()
-        photos = Profile.objects.filter(user = current_user).all()
-        return render(request,'profile.html',{"profile":profile,"photos":photos,"current_user":current_user})
+        photos = Photo.objects.filter(user = current_user).all()
+        posts = photos.count()
+        return render(request,'profile.html',{"profile":profile,"photos":photos,"current_user":current_user,"posts":posts})
     except:
         return redirect('edit-profile')
 
@@ -45,3 +47,13 @@ def new_photo(request):
     else:
         form = NewPhotoForm()
     return render(request, 'new_photo.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def comment(request):
+
+    if 'comment' in request.GET and request.GET["comment"]:
+        comment = request.GET.get("comment")
+        new_comment = comments(comment = comment)
+        new_comment.user = request.user
+        new_comment.save()
+    return redirect('index')

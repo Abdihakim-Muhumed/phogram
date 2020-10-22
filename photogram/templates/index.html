@@ -1,4 +1,40 @@
 {% extends 'base.html'%}
 {% block content%}
 <h1 class="text-center">Welcome to Photogram</h1>
+{% if photos %}
+    <div class='container d-flex flex-wrap justify-content-center'>
+        {% for photo in photos %}
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="card col-lg-8 col-md-8 col-sm-8 col-xs-10" style="border: 1px; margin-bottom: 2%;">
+                <div class="card-header">
+                    <h3>{{photo.user.username}}</h3>
+                    <p class="text-secondary ml-3" > {{photo.caption}}</p>
+                </div>
+                <img src="{{photo.image.url}}" class="card-img-top" alt="{{photo.caption}}" height='600' width='100%' data-toggle="modal" data-target="#{{image.image}}">
+    
+                <div class="card-body">
+                    <p style="font-size: large;"><a href=""><i class="far fa-heart"></i></a></p>
+                    <h5 class="card-text float-left"></h5>
+                    <a class="text-secondary float-right" href="">
+                    </a> 
+                    
+                </div>
+                <form class="card-footer" action="{% url 'comment'%}" role="comment">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Add a comment" name="comment">
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" type="submit">Post</button>
+                        </div>
+                      </div>
+                </form>
+            </div>  
+        </div>
+            
+        {% endfor %}
+        
+        
+        
+    </div>
+    {% endif%}
 {%endblock%}
