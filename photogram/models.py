@@ -2,11 +2,6 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 # Create your models here.
-class comments(models.Model):
-    comment = models.CharField(max_length = 30)
-    user = models.ForeignKey(User,default=1,on_delete=models.CASCADE)
-    def __str__(self):
-        return self.comment
 
 class Profile(models.Model):
     bio = models.CharField(max_length=150)
@@ -26,7 +21,6 @@ class Photo(models.Model):
     caption = models.CharField(max_length=100)
     user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
     likes = models.IntegerField(default=0)
-    comments = models.ManyToManyField(comments)
 
     class Meta:
         ordering = ['caption',]
@@ -46,3 +40,9 @@ class Photo(models.Model):
         cls.objects.filter(id=id).update(caption=caption)
 
 
+class comments(models.Model):
+    comment = models.CharField(max_length = 30)
+    user = models.ForeignKey(User,default=1,on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo,default = 1,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.comment

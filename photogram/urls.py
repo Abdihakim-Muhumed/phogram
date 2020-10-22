@@ -6,5 +6,6 @@ urlpatterns=[
     path('',views.profile,name ='profile'),
     path(r'new/photo', views.new_photo, name='new-photo'),
     path(r'edit/profile', views.edit_profile, name='edit-profile'),
-    path('comment',views.comment,name='comment')
+    path(r'comment/(\d<photo_id>+)',views.comment,name='comment'),
+    path(r'like/(\d<photo_id>+)',views.like_photo,name='like-photo')
 ]

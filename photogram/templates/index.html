@@ -14,13 +14,18 @@
                 <img src="{{photo.image.url}}" class="card-img-top" alt="{{photo.caption}}" height='600' width='100%' data-toggle="modal" data-target="#{{image.image}}">
     
                 <div class="card-body">
-                    <p style="font-size: large;"><a href=""><i class="far fa-heart"></i></a></p>
-                    <h5 class="card-text float-left"></h5>
+                    <p ><a href="{% url 'like-photo' photo.id%}" style="font-size: xx-large;"><i class="far fa-heart"></i></a>{% if photo.likes > 0%}{{photo.likes}}{%endif%}</p>
+                    {% for comments in all_comments%}
+                    {% if comments.photo == photo%}
+                    <h5 class="card-text float-left">{{comments.user.username}}: {{comments.comment}}</h5>
+                    {% endif%}
+                    {% endfor%}
+                    
                     <a class="text-secondary float-right" href="">
                     </a> 
                     
                 </div>
-                <form class="card-footer" action="{% url 'comment'%}" role="comment">
+                <form class="card-footer" action="{% url 'comment' photo.id %}" role="comment">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Add a comment" name="comment">
                         <div class="input-group-btn">
@@ -32,9 +37,9 @@
         </div>
             
         {% endfor %}
-        
-        
+
+
         
     </div>
-    {% endif%}
+{% endif%}
 {%endblock%}

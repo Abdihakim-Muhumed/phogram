@@ -6,7 +6,8 @@ from .forms import NewPhotoForm,EditProfileForm
 @login_required(login_url='/accounts/login/')
 def index(request):
     photos = Photo.objects.all()
-    return render(request,'index.html',{"photos":photos})
+    all_comments = comments.objects.all()
+    return render(request,'index.html',{"photos":photos,"all_comments":all_comments})
 @login_required(login_url='/accounts/login/')
 def profile(request):
     current_user = request.user
@@ -49,11 +50,21 @@ def new_photo(request):
     return render(request, 'new_photo.html', {"form": form})
 
 @login_required(login_url='/accounts/login/')
-def comment(request):
+def comment(request,photo_id):
 
     if 'comment' in request.GET and request.GET["comment"]:
         comment = request.GET.get("comment")
         new_comment = comments(comment = comment)
         new_comment.user = request.user
+        comment_photo = Photo.objects.filter(id= photo_id).first()
+        new_comment.photo = comment_photo
         new_comment.save()
+    return redirect('index')
+
+
+@login_required(login_url='/accounts/login/')
+def like_photo(request,photo_id):
+    photo = Photo.objects.filter(id = photo_id).first()
+    photo.likes +=1
+    photo.save()
     return redirect('index')
