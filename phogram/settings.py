@@ -18,7 +18,6 @@ import os
 import django_on_heroku
 import dj_database_url
 from decouple import config,Csv
-
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -56,12 +55,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'f2b#9e!6ao-bca0ykf5evx0=8@6uko-42_1&)7-ly=bpzlfxc*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.localhost','.herokuapp.com','.127.0.0.1']
 
 
 # Application definition
@@ -115,14 +113,7 @@ WSGI_APPLICATION = 'phogram.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'photogram',
-        'USER': 'ABDIHAKIM',
-        'PASSWORD': '123456789',
-    }
-}
+
 
 
 # Password validation

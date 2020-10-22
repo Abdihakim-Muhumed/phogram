@@ -1,1 +1,1 @@
-web: gunicorn phogram.wsgi --log-file-
+web: gunicorn phogram.wsgi --log-file -
