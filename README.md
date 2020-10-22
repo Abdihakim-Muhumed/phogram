@@ -3,8 +3,7 @@
 #  Author: Abdihakim Muhumed.
 This web application is a clone of the website for the popular photo app Instagram
 # Setup Instructions:
-
-Click this link to access the application : 
+Click this link to access the application : https://pho-gram.herokuapp.com/
 # Technologies
  1.Python(django)
  2.HTML

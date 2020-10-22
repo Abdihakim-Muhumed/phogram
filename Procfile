@@ -1,0 +1,1 @@
+web: gunicorn phogram.wsgi --log-file-
